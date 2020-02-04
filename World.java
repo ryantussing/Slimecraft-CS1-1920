@@ -6,6 +6,7 @@
 package slimecraft;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -13,6 +14,13 @@ import javax.swing.JPanel;
  * @author jword
  */
 public class World extends JPanel {
+    private ArrayList<Blob> blobs = new ArrayList<>();    
+    private ArrayList<Glob> globs = new ArrayList<>();    
+    private ArrayList<Sprite> sprites = new ArrayList<>();
+
+    public World() {
+        sprites.add(new Blob(10,10));
+    }
     
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
