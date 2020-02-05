@@ -25,6 +25,6 @@ public class Slime extends Sprite {
     @Override
     public void draw(Graphics g) {
         g.setColor(super.getColor());
-        g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
+        g.fillRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
 }
