@@ -20,11 +20,10 @@ public abstract class Sprite {
     private int width, height;
     private Color color;
     private Rectangle bounds;
-    private boolean alive;
+    private boolean alive = true;
 
     public Sprite(int speed, int x, int y, int width, int height, Color color) {
         this.speed = speed;
-        this.alive = true;
         this.x = x;
         this.y = y;
         this.vx = (int) (Math.random() * this.speed * 2 - this.speed);
@@ -36,6 +35,10 @@ public abstract class Sprite {
     }
     
     // Methods
+    public void grow(double rate) {
+        this.width *= rate;
+        this.height *= rate;
+    }
     
     public void update() {
         this.x += this.vx;
@@ -44,19 +47,17 @@ public abstract class Sprite {
     }
     public abstract void draw(Graphics g);
     
-    public void collide(Sprite other) {
-        if (this.bounds.intersects(other.bounds)) {
+    public boolean collide(Sprite other) {
+         boolean collided = this.bounds.intersects(other.bounds);
+        if (collided) {
             this.didCollide();
             other.didCollide();
         }
+        return collided;
     }
-    
-    public void eat(Sprite food) {
-        if (this.getBounds().intersects(food.getBounds()) && food.isAlive()) {
-            this.setHeight(this.getHeight() + 5);
-            this.setWidth(this.getWidth() + 5);
-            food.die();
-        }
+
+    public int getSpeed() {
+        return speed;
     }
     
     public void die() {
@@ -66,8 +67,16 @@ public abstract class Sprite {
     public void didCollide() {
         this.vx = -this.vx;
         this.vy = -this.vy;
+        this.update();
     }
 
+    public void collideWorldBounds(int cWidth, int cHeight) {
+        if (this.x < 0 || this.x + this.width > cWidth)
+            this.vx = -this.vx;
+        if (this.y < 0 || this.y + this.height > cHeight)
+            this.vy = -this.vy;       
+    }
+    
     // Getters And Setters
     
     public int getX() {

@@ -14,10 +14,16 @@ import java.awt.Color;
 public class BabyGroot extends Baby {
     
     private static final int SPEED = 5;
-    private static final Color COLOR = new Color(25, 127, 80);
+    private static final Color COLOR = new Color(255, 127, 80);
 
     public BabyGroot(int x, int y) {
         super(SPEED, x, y, COLOR);
     }  
 
+    public BabyGroot reproduce (BabyGroot mate) {
+        int newX = super.getX() + (int) (Math.random() * 10 - 5);
+        int newY = super.getY() + (int) (Math.random() * 10 - 5);
+        BabyGroot baby = new BabyGroot(newX, newY);
+        return baby;
+    }
 }
